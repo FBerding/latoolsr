@@ -39,6 +39,7 @@ textual_corpus <-quanteda::corpus(data)
 token<-quanteda::tokens(textual_corpus,
               remove_punct = TRUE,
               remove_symbols = TRUE,
+              remove_numbers = TRUE,
               remove_url = TRUE,
               verbose = verbose)
 token<-quanteda::tokens_remove(x=token,pattern=quanteda::stopwords(language ="de" ))

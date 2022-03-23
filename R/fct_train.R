@@ -8,6 +8,8 @@
 #' \code{\link{create_basic_representation}}.
 #' @param text_model The model of the texts that should be used for training AI.
 #' This object is must be generated with \code{\link{create_text_model}}.
+#' @param save_text_model \code{TRUE} if the text_model should be saved within
+#' the trained AI. \code{FALSE} if not desired.
 #' @param learner Learner used for modeling the AI. It must be created with
 #' mlr3.
 #' @param normalize \code{TRUE} if the independent and depended variables should be normalized
@@ -22,6 +24,8 @@
 #' in training the AI after applying a filter. For including all features set 1.0.
 #' @param verbose \code{TRUE} if information on the progress should be printed
 #' to the console. \code{FALSE} if not desired.
+#' @param na.rm \code{TRUE} if the analysis should use only complete cases.
+#' \code{FALSE} if not.
 #' @return Function returns an object of class \code{List} that contains
 #' the trained learner and all necessary components for predicting new data.
 #'
@@ -43,6 +47,7 @@
 #' @export
 ai_train<-function(basic_text_rep,
                    text_model,
+                   save_text_model=TRUE,
                    learner,
                    normalize=FALSE,
                    n_performance_estimation=30,
@@ -50,7 +55,8 @@ ai_train<-function(basic_text_rep,
                    category_name,
                    filter="jmim",
                    filter_ratio=1.0,
-                   verbose=FALSE){
+                   verbose=FALSE,
+                   na.rm=TRUE){
 
 
   data_analysis<-match_into_model(dtm=basic_text_rep$dtm,
@@ -64,6 +70,10 @@ ai_train<-function(basic_text_rep,
 
   data_analysis<-cbind(data_analysis,category_data)
   data_analysis<-as.data.frame(data_analysis)
+
+  if(na.rm==TRUE){
+    data_analysis<-stats::na.omit(data_analysis)
+  }
 
   datamatrix_non_normalized<-data_analysis
   if(normalize==TRUE)
@@ -216,9 +226,14 @@ ai_train<-function(basic_text_rep,
     "Scores"=filtervalues
   )
 
+  if(save_text_model==TRUE){
+    trained_learner<-list("text_model"=text_model)
+  } else {
+    trained_learner<-list("text_model"=NULL)
+  }
   trained_learner<-list(
     "category_name"=category_name,
-    "text_model"=text_model,
+    "text_model"=trained_learner$text_model,
     "learner"=learner,
     "n_sample"=nrow(data_analysis),
     "n_input_variables"=ncol(matrix_structure),

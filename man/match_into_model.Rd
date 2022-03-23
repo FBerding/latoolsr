@@ -4,7 +4,7 @@
 \alias{match_into_model}
 \title{Matching new data into the text model}
 \usage{
-match_into_model(dtm, text_model, verbose = TRUE)
+match_into_model(dtm, text_model, verbose = FALSE)
 }
 \arguments{
 \item{dtm}{Document-term-matrix generated containing the new data. Object

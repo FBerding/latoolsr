@@ -7,6 +7,7 @@
 ai_train(
   basic_text_rep,
   text_model,
+  save_text_model = TRUE,
   learner,
   normalize = FALSE,
   n_performance_estimation = 30,
@@ -14,7 +15,8 @@ ai_train(
   category_name,
   filter = "jmim",
   filter_ratio = 1,
-  verbose = FALSE
+  verbose = FALSE,
+  na.rm = TRUE
 )
 }
 \arguments{
@@ -24,6 +26,9 @@ The object should be generated with the function
 
 \item{text_model}{The model of the texts that should be used for training AI.
 This object is must be generated with \code{\link{create_text_model}}.}
+
+\item{save_text_model}{\code{TRUE} if the text_model should be saved within
+the trained AI. \code{FALSE} if not desired.}
 
 \item{learner}{Learner used for modeling the AI. It must be created with
 mlr3.}
@@ -46,6 +51,9 @@ in training the AI after applying a filter. For including all features set 1.0.}
 
 \item{verbose}{\code{TRUE} if information on the progress should be printed
 to the console. \code{FALSE} if not desired.}
+
+\item{na.rm}{\code{TRUE} if the analysis should use only complete cases.
+\code{FALSE} if not.}
 }
 \value{
 Function returns an object of class \code{List} that contains
