@@ -59,14 +59,19 @@ ai_train<-function(basic_text_rep,
                    na.rm=TRUE){
 
 
+  if(verbose==TRUE){
+    print(paste(date(),"Beginning Training of AI for",category_name))
+    print(paste(date(),"Matching Data into Textmodel"))
+  }
+
   data_analysis<-match_into_model(dtm=basic_text_rep$dtm,
                                   text_model = text_model,
                                   verbose=TRUE)
   data_analysis<-as.data.frame(data_analysis)
 
   category_data<-basic_text_rep$dtm@docvars[,category_name]
-  target_max=max(category_data)
-  target_min=min(category_data)
+  target_max=max(category_data,na.rm = TRUE)
+  target_min=min(category_data,na.rm = TRUE)
 
   data_analysis<-cbind(data_analysis,category_data)
   data_analysis<-as.data.frame(data_analysis)
@@ -147,7 +152,7 @@ ai_train<-function(basic_text_rep,
     }
 
     if(verbose==TRUE){
-      print(paste(date(),"performance estimation:",i,"von",n_performance_estimation,mlr3::msr("classif.Iota_AVG")$id,performance))
+      print(paste(date(),"performance estimation:",i,"of",n_performance_estimation,mlr3::msr("classif.Iota_AVG")$id,performance))
     }
   }
 

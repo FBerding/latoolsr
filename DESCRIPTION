@@ -1,15 +1,27 @@
 Package: latoolsr
 Type: Package
-Title: Learning Analytics - Tools for Analysing Textual Data
-Version: 0.1.0.9003
+Title: Learning Analytics - Tools for Analysing Textual Data with Artifical Intelligence
+Version: 0.1.0.9008
 Authors@R: person("Berding", "Florian",
     email="florian.berding@uni-hamburg.de", role=c("aut","cre"))
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: This package tries to provide an interface for a convenient use of
+  textual data and artifical intelligence in educational settings. Further 
+  descriptions   follow in the near future.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
 Depends: mlr3,mlr3learners, R6
-Imports: udpipe, quanteda, text2vec,  mlr3tuning, mlr3filters, mlr3pipelines,smotefamily, irr, iotarelr, ggplot2, methods, paradox
+Imports: udpipe, 
+  quanteda, 
+  text2vec,  
+  mlr3tuning, 
+  mlr3filters, 
+  mlr3pipelines,
+  smotefamily,
+  irr, 
+  iotarelr, 
+  ggplot2, 
+  methods, 
+  paradox
 
